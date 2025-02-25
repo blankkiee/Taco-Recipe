@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taco Recipes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-yellow-100 via-red-100 to-blue-100 min-h-screen flex items-center justify-center p-6">
+  <div class="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl transform hover:scale-105 transition-transform duration-300">
+    <h1 class="text-4xl font-extrabold text-center text-gray-800 flex items-center justify-center gap-3">Taco Town <span>🌮</span></h1>
+    
+    <form action="/recipe" method="POST" class="flex justify-center gap-6 my-6">
+      <button type="submit" value="chicken" name="choice" class="bg-yellow-500 p-4 rounded-full shadow-lg hover:bg-yellow-600 transition-colors duration-300">🍗</button>
+      <button type="submit" value="beef" name="choice" class="bg-red-500 p-4 rounded-full shadow-lg hover:bg-red-600 transition-colors duration-300">🥩</button>
+      <button type="submit" value="fish" name="choice" class="bg-blue-500 p-4 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">🐟</button>
+    </form>
+    
+    <div id="recipeContainer" class="bg-gray-50 p-6 rounded-xl shadow-md">
+      <% if(locals.recipe) { %>
+        <h2 id="recipeTitle" class="text-3xl font-semibold text-gray-700 border-b pb-3 mb-4">
+          <%= recipe.name %>
+        </h2>
+        <h3 class="text-xl font-medium text-gray-600">Ingredients:</h3>
+        <ul id="ingredientsList" class="list-disc list-inside text-gray-700 mt-4 space-y-2">
+          <li>
+            <%= recipe.ingredients.protein.name %> <%= recipe.ingredients.protein.preparation %>
+          </li>
+          <li>
+            <%= recipe.ingredients.salsa.name %> and <%= recipe.ingredients.salsa.spiciness %> spiciness
+          </li>
+          <% recipe.ingredients.toppings.forEach(topping => { %>
+            <li>
+              <%= topping.quantity %> of <%= topping.name %>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <h2 class="text-center text-lg text-gray-600">Pick your favourite taco ingredient 👆</h2>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
